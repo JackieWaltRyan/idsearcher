@@ -2,7 +2,7 @@
 
 My program for quickly finding different IDs in game cache files for the My Little Pony mobile game by Gameloft.
 
-4PDA: https://4pda.to/forum/index.php?showtopic=396777&view=findpost&p=121890029
+4PDA: https://4pda.to/forum/index.php?showtopic=396777&view=findpost&p=129258075
 
 ### License
 
