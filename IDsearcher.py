@@ -17,8 +17,8 @@ SETTINGS = {"Format": {"TXT": True,
                     "Pony_House": "            <StoredItem ID=\"{{ ID }}\"/>",
                     "PonyPet": "            <StoredItem ID=\"{{ ID }}\" Count=\"1000\"/>",
                     "PonyPart": "            <Item ID=\"{{ ID }}\"/>",
-                    "ProfileAvatar": "            <ProfileAvatarItemIdOwned id=\"{{ ID }}\"/>\n<ProfileAvatarItemStatus id=\"{{ ID }}\" status=\"use\"/>",
-                    "ProfileAvatarFrame": "            <ProfileAvatarFrameItemIdOwned id=\"{{ ID }}\"/>\n<ProfileAvatarFrameItemStatus id=\"{{ ID }}\" status=\"use\"/>",
+                    "ProfileAvatar": "            <ProfileAvatarItemIdOwned id=\"{{ ID }}\"/>\n            <ProfileAvatarItemStatus id=\"{{ ID }}\" status=\"use\"/>",
+                    "ProfileAvatarFrame": "            <ProfileAvatarFrameItemIdOwned id=\"{{ ID }}\"/>\n            <ProfileAvatarFrameItemStatus id=\"{{ ID }}\" status=\"use\"/>",
                     "RoadBuildingPermit": "            <OwnedRBP ID=\"{{ ID }}\"/>",
                     "Theme": "            <OwnedTheme ID=\"{{ ID }}\"/>"}}
 
