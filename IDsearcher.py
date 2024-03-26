@@ -200,7 +200,7 @@ def parse_gameobjectdata(file, folder):
                             print("\n")
 
                             if len(data_raw) > 0:
-                                data_json = sorted(data, key=str.lower)
+                                data_json = sorted(data_raw, key=str.lower)
                             
                                 if settings["Format"]["TXT"]:
                                     for data_id in data_json:
