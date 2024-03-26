@@ -176,7 +176,7 @@ def parse_gameobjectdata(file, folder):
                         print(f"    Поиск всех {cat}...")
                         
                         try:
-                            data_txt, data_json, data_xml = "", [], ""
+                            data_raw, data_txt, data_json, data_xml = [], "", [], ""
                             i, items = 1, soup.find_all(name="Category",
                                                         attrs={"ID": cat},
                                                         limit=1)[0]
@@ -193,32 +193,34 @@ def parse_gameobjectdata(file, folder):
                                         pass
                                     
                                     if res_id:
-                                        if settings["Format"]["TXT"]:
-                                            data_txt += f"{res_id}\n"
-                                        
-                                        if settings["Format"]["JSON"]:
-                                            data_json.append(res_id)
-                                        
-                                        if settings["Format"]["XML"]:
-                                            if cat in settings["XML"]:
-                                                placeholder = settings["XML"][cat]
-                                                
-                                                data_xml += f"{placeholder}\n".replace("{{ ID }}", res_id)
-                                            else:
-                                                data_xml += f"{res_id}\n"
+                                        data_raw.append(res_id)
                                 
                                 i += 1
                                 
                             print("\n")
+
+                            if len(data_raw) > 0:
+                                data_json = sorted(data, key=str.lower)
                             
-                            if settings["Format"]["TXT"] and len(data_txt) > 0:
-                                trigger = create_file_out(cat=cat, file="txt", data=data_txt) if trigger else False
+                                if settings["Format"]["TXT"]:
+                                    for data_id in data_json:
+                                        data_txt += f"{data_id}\n"
+                                    
+                                    trigger = create_file_out(cat=cat, file="txt", data=data_txt) if trigger else False
                             
-                            if settings["Format"]["JSON"] and len(data_json) > 0:
-                                trigger = create_file_out(cat=cat, file="json", data=data_json) if trigger else False
+                                if settings["Format"]["JSON"]:
+                                    trigger = create_file_out(cat=cat, file="json", data=data_json) if trigger else False
                             
-                            if settings["Format"]["XML"] and len(data_xml) > 0:
-                                trigger = create_file_out(cat=cat, file="xml", data=data_xml) if trigger else False
+                                if settings["Format"]["XML"]:
+                                    for data_id in data_json:
+                                        if cat in settings["XML"]:
+                                            placeholder = settings["XML"][cat]
+                                                
+                                            data_xml += f"{placeholder}\n".replace("{{ ID }}", data_id)
+                                        else:
+                                            data_xml += f"{data_id}\n"
+                                                
+                                    trigger = create_file_out(cat=cat, file="xml", data=data_xml) if trigger else False
                             
                             print("")
                         except Exception:
