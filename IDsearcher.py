@@ -79,10 +79,10 @@ def create_file_out(cat, file, data):
 
 
 def load_file_settings(cats):
-    for cat in cats:
-        SETTINGS["Categories"].update({cat: True})
-    
     try:
+        for cat in cats:
+            SETTINGS["Categories"].update({cat: True})
+        
         if exists(path="IDsearcher.json"):
             print("2: Обработка файла IDsearcher.json.\n")
             
