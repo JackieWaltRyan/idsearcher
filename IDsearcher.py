@@ -172,7 +172,7 @@ def parse_gameobjectdata(file, folder):
                 
             if trigger:
                 for cat in settings["Categories"]:
-                    if settings["Categories"][cat]:
+                    if settings["Categories"][cat] and cat in SETTINGS["Categories"]:
                         print(f"    Поиск всех {cat}...")
                         
                         try:
