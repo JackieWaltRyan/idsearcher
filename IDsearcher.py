@@ -29,16 +29,16 @@ def create_file_settings(data=None):
         
         with open(file="IDsearcher.json",
                   mode="w") as settings_json:
-            dump(obj=data or SETTINGS,
+            dump(obj=(data or SETTINGS),
                  fp=settings_json,
                  indent=4)
         
-        return data or SETTINGS
+        return (data or SETTINGS)
     except Exception:
         print("[ERROR] Во время создания файла настроек IDsearcher.json возникла ошибка. "
               "Возможно нет прав на создания файлов.\n")
         
-        return data or SETTINGS
+        return (data or SETTINGS)
 
 
 def create_file_out(cat, file, data):
@@ -58,7 +58,7 @@ def create_file_out(cat, file, data):
         
         print(f"        Создание файла IDsearcher/{cat}.{file}.")
         
-        if file == "json":
+        if (file == "json"):
             with open(file=f"IDsearcher/{cat}.{file}",
                       mode="w") as output_file:
                 dump(obj=data,
@@ -92,32 +92,32 @@ def load_file_settings(cats):
                 try:
                     data = loads(s=settings_json.read())
                     
-                    if len(data) < len(SETTINGS):
+                    if (len(data) < len(SETTINGS)):
                         print("[INFO] В файле настроек IDsearcher.json отсутствуют некоторые параметры. "
                               "Эти параметры будут добавлены в файл со стандартными значениями.\n")
                         
                         for item in SETTINGS:
-                            if item not in data:
+                            if (item not in data):
                                 data.update({item: SETTINGS[item]})
                         
                         data = create_file_settings(data=data)
                     
-                    if len(data["Format"]) < len(SETTINGS["Format"]):
+                    if (len(data["Format"]) < len(SETTINGS["Format"])):
                         print("[INFO] В файле настроек IDsearcher.json отсутствуют некоторые параметры. "
                               "Эти параметры будут добавлены в файл со стандартными значениями.\n")
                         
                         for item in SETTINGS["Format"]:
-                            if item not in data["Format"]:
+                            if (item not in data["Format"]):
                                 data["Format"].update({item: SETTINGS["Format"][item]})
                         
                         data = create_file_settings(data=data)
                     
-                    if len(data["Categories"]) < len(SETTINGS["Categories"]):
+                    if (len(data["Categories"]) < len(SETTINGS["Categories"])):
                         print("[INFO] В файле настроек IDsearcher.json отсутствуют некоторые параметры. "
                               "Эти параметры будут добавлены в файл со стандартными значениями.\n")
                         
                         for item in SETTINGS["Categories"]:
-                            if item not in data["Categories"]:
+                            if (item not in data["Categories"]):
                                 data["Categories"].update({item: SETTINGS["Categories"][item]})
                         
                         data = create_file_settings(data=data)
@@ -158,13 +158,13 @@ def parse_gameobjectdata(file, folder):
             
             settings = load_file_settings(cats=cats)
             
-            if True not in settings["Format"].values():
+            if (True not in settings["Format"].values()):
                 print("[ERROR] В файле настроек IDsearcher.json в разделе \"Format\" не включен ни один параметр. "
                       "Для работы программы нужно включить хотя бы один.\n")
                     
                 trigger = False
             
-            if True not in settings["Categories"].values():
+            if (True not in settings["Categories"].values()):
                 print("[ERROR] В файле настроек IDsearcher.json в разделе \"Categories\" не включен ни один параметр. "
                       "Для работы программы нужно включить хотя бы один.\n")
                     
@@ -172,7 +172,7 @@ def parse_gameobjectdata(file, folder):
                 
             if trigger:
                 for cat in settings["Categories"]:
-                    if settings["Categories"][cat] and cat in SETTINGS["Categories"]:
+                    if (settings["Categories"][cat] and (cat in SETTINGS["Categories"])):
                         print(f"    Поиск всех {cat}...")
                         
                         try:
@@ -184,7 +184,7 @@ def parse_gameobjectdata(file, folder):
                             for item in items:
                                 print(f"\r        Обработано {i} из {len(items)}.", end="")
                                 
-                                if len(item) > 1:
+                                if (len(item) > 1):
                                     res_id = ""
                                     
                                     try:
@@ -199,7 +199,7 @@ def parse_gameobjectdata(file, folder):
                                 
                             print("\n")
 
-                            if len(data_raw) > 0:
+                            if (len(data_raw) > 0):
                                 data_json = sorted(data_raw, key=str.lower)
                             
                                 if settings["Format"]["TXT"]:
@@ -213,7 +213,7 @@ def parse_gameobjectdata(file, folder):
                             
                                 if settings["Format"]["XML"]:
                                     for data_id in data_json:
-                                        if cat in settings["XML"]:
+                                        if (cat in settings["XML"]):
                                             placeholder = settings["XML"][cat]
                                                 
                                             data_xml += f"{placeholder}\n".replace("{{ ID }}", data_id)
@@ -240,9 +240,9 @@ def parse_gameobjectdata(file, folder):
 
 def load_files():
     try:
-        files = [x for x in argv[1:] if isfile(path=x) and x.endswith("gameobjectdata.xml")]
+        files = [x for x in argv[1:] if (isfile(path=x) and x.endswith("gameobjectdata.xml"))]
         
-        if len(files) > 0:
+        if (len(files) > 0):
             return parse_gameobjectdata(file=files[0], folder="")
         else:
             if exists(path="000_and_mlpextra_common/gameobjectdata.xml"):
