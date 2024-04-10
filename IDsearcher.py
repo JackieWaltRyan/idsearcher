@@ -181,7 +181,8 @@ def parse_gameobjectdata(file, folder):
                                                         limit=1)[0]
 
                             for item in items:
-                                print(f"\r        Обработано {i} из {len(items)}.", end="")
+                                print(f"\r        Обработано {i} из {len(items)}.",
+                                      end="")
 
                                 if len(item) > 1:
                                     res_id = ""
@@ -199,7 +200,8 @@ def parse_gameobjectdata(file, folder):
                             print("\n")
 
                             if len(data_raw) > 0:
-                                data_json = sorted(data_raw, key=lambda x: x.lower())
+                                data_json = sorted(data_raw,
+                                                   key=lambda x: x.lower())
 
                                 if settings["Format"]["TXT"]:
                                     for data_id in data_json:
@@ -219,7 +221,8 @@ def parse_gameobjectdata(file, folder):
                                         if cat in settings["XML"]:
                                             placeholder = settings["XML"][cat]
 
-                                            data_xml += f"{placeholder}\n".replace("{{ ID }}", data_id)
+                                            data_xml += f"{placeholder}\n".replace("{{ ID }}",
+                                                                                   data_id)
                                         else:
                                             data_xml += f"{data_id}\n"
 
