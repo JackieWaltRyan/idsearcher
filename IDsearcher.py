@@ -4,6 +4,7 @@ from os.path import exists, isfile
 from sys import exit, argv
 
 from bs4 import BeautifulSoup
+from natsort import natsorted, ns
 
 SETTINGS = {"Format": {"TXT": True,
                        "JSON": True,
@@ -14,12 +15,13 @@ SETTINGS = {"Format": {"TXT": True,
                     "Pony_House": "            <StoredItem ID=\"{{ ID }}\"/>",
                     "PonyPet": "            <StoredItem ID=\"{{ ID }}\" Count=\"1000\"/>",
                     "PonyPart": "            <Item ID=\"{{ ID }}\"/>",
-                    "ProfileAvatar": "            <ProfileAvatarItemIdOwned id=\"{{ ID }}\"/>\n"
-                                     "            <ProfileAvatarItemStatus id=\"{{ ID }}\" status=\"use\"/>",
-                    "ProfileAvatarFrame": "            <ProfileAvatarFrameItemIdOwned id=\"{{ ID }}\"/>\n"
-                                          "            <ProfileAvatarFrameItemStatus id=\"{{ ID }}\" status=\"use\"/>",
+                    "ProfileAvatar": "            <ProfileAvatarItemIdOwned id=\"{{ ID }}\"/>",
+                    "ProfileAvatarFrame": "            <ProfileAvatarFrameItemIdOwned id=\"{{ ID }}\"/>",
                     "RoadBuildingPermit": "            <OwnedRBP ID=\"{{ ID }}\"/>",
-                    "Theme": "            <OwnedTheme ID=\"{{ ID }}\"/>"}}
+                    "Theme": "            <OwnedTheme ID=\"{{ ID }}\"/>",
+                    "PlayerCardBackground": "            <PlayerCardBackgroundItemIdOwned id=\"{{ ID }}\"/>",
+                    "PlayerCardBackgroundFrame": "            <PlayerCardBackgroundFrameItemIdOwned id=\"{{ ID }}\"/>",
+                    "PlayerCardCutieMark": "            <PlayerCardCutieMarkItemIdOwned id=\"{{ ID }}\"/>"}}
 
 
 def create_file_settings(data=None):
@@ -200,8 +202,8 @@ def parse_gameobjectdata(file, folder):
                             print("\n")
 
                             if len(data_raw) > 0:
-                                data_json = sorted(data_raw,
-                                                   key=lambda x: x.lower())
+                                data_json = natsorted(seq=data_raw,
+                                                      alg=ns.IGNORECASE)
 
                                 if settings["Format"]["TXT"]:
                                     for data_id in data_json:
@@ -276,5 +278,7 @@ if __name__ == "__main__":
         else:
             raise Exception
     except Exception:
+        print("[INFO] Работа программы завершена, но во время работы возникли ошибки!\n")
+
         input()
         exit()
