@@ -29,10 +29,12 @@ def create_file_settings(data=None):
         print("0: Создание файла IDsearcher.json.\n")
 
         with open(file="IDsearcher.json",
-                  mode="w") as settings_json:
+                  mode="w",
+                  encoding="UTF-8") as settings_json:
             dump(obj=(data or SETTINGS),
                  fp=settings_json,
-                 indent=4)
+                 indent=4,
+                 ensure_ascii=False)
 
         return data or SETTINGS
     except Exception:
@@ -61,10 +63,12 @@ def create_file_out(cat, file, data):
 
         if file == "json":
             with open(file=f"IDsearcher/{cat}.{file}",
-                      mode="w") as output_file:
+                      mode="w",
+                      encoding="UTF-8") as output_file:
                 dump(obj=data,
                      fp=output_file,
-                     indent=4)
+                     indent=4,
+                     ensure_ascii=False)
         else:
             with open(file=f"IDsearcher/{cat}.{file}",
                       mode="w",
